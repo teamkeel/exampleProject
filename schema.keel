@@ -1,5 +1,21 @@
-model Example {
-  fields {
-    name Text
-  }
+model Todo {
+    fields {
+        complete Boolean @default(false)
+        title Text
+        description Text?
+    }
+
+    operations {
+        create createTodo() with (title)
+        update setCompletion(id) with (complete)
+        update updateTodo(id) with (title, description)
+        list listTodos(complete)
+    }
+}
+
+api Web {
+    @graphql
+    models {
+        Todo
+    }
 }
