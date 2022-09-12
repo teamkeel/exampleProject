@@ -1,0 +1,5 @@
+model Example {
+  fields {
+    name Text
+  }
+}
