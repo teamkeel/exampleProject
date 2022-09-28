@@ -7,14 +7,17 @@ model Todo {
 
     operations {
         create createTodo() with (title)
+        get todo(id)
+        list allTodos(complete?)
         update setCompletion(id) with (complete)
-        update updateTodo(id) with (title, description)
-        list listTodos(complete)
+        update updateTodo(id) with (title?, description?, complete?)
+        delete deleteTodo(id)
     }
 }
 
 api Web {
     @graphql
+
     models {
         Todo
     }
