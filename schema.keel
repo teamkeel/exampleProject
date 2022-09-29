@@ -3,16 +3,26 @@ model Todo {
         complete Boolean @default(false)
         title Text
         description Text?
+        identity Identity
     }
 
     operations {
-        create createTodo() with (title)
+        create createTodo() with (title) {
+            @set(todo.identity = ctx.identity)
+        }
         get todo(id)
-        list allTodos(complete?)
+        list allTodos(complete?) {
+            @where(todo.identity == ctx.identity)
+        }
         update setCompletion(id) with (complete)
         update updateTodo(id) with (title?, description?, complete?)
         delete deleteTodo(id)
     }
+
+    @permission(
+        actions: [get, list, update, create, delete],
+        expression: todo.identity == ctx.identity
+    )
 }
 
 api Web {
