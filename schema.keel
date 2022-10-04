@@ -6,7 +6,7 @@ model Todo {
     }
 
     operations {
-        create createTodo() with (title)
+        create createTodo() with (title, description?)
         get todo(id)
         list allTodos(complete?)
         update setCompletion(id) with (complete)
