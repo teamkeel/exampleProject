@@ -17,7 +17,13 @@ model Todo {
 
 api Web {
     @graphql
+    models {
+        Todo
+    }
+}
 
+api Console {
+    @rpc
     models {
         Todo
     }
