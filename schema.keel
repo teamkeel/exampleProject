@@ -3,20 +3,38 @@ model Todo {
         complete Boolean @default(false)
         title Text
         description Text?
+        completedAt Timestamp?
     }
 
     operations {
-        create createTodo() with (title, description?)
+        // Operations are built in actions in the structre of
+        // <get | list | delete> <operation name>(<where inputs>)
+        // OR
+        // <create | update> <operation name>(<where inputs>) with (<value inputs>)
+        //
+        // Additional attributes such as @set, @where and @validate can be adding to the body of the operation
+        //
+        create createTodo() with (title)
         get todo(id)
         list allTodos(complete?)
-        update setCompletion(id) with (complete)
-        update updateTodo(id) with (title?, description?, complete?)
+        list completedTodos() {
+            @where(todo.complete == true)
+        }
+        update updateTodo(id) with (title?, description?)
         delete deleteTodo(id)
+    }
+
+    functions {
+        // Functions are custom actions
+        // Follow a similar structure to operations but trigger custom code
+        // See this funcitons in /functions/setCompletion.ts
+        update setCompletion(id) with (complete)
     }
 }
 
 api Web {
     @graphql
+
     models {
         Todo
     }
@@ -24,6 +42,7 @@ api Web {
 
 api Console {
     @rpc
+
     models {
         Todo
     }
