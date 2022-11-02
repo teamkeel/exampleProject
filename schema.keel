@@ -13,6 +13,11 @@ model Todo {
         update updateTodo(id) with (title?, description?, complete?)
         delete deleteTodo(id)
     }
+    
+    @permission(
+        actions: [get, list, create, update, delete],
+        expression: true
+    )
 }
 
 api Web {
