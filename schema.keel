@@ -13,8 +13,6 @@ model Todo {
             @where(todo.owner == ctx.identity)
         }
         delete deleteTodo(id)
-        // Operations that write data use a second set of write inputs after the WITH keyword
-        // update setCompletion(id) with (complete)
         update updateTodo(id) with (title?, description?)
         update setCompletion(id) with (complete)
         create createTodo() with (title, description?) {
