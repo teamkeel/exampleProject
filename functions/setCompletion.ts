@@ -1,9 +1,17 @@
-import { SetCompletion } from "@teamkeel/sdk";
+import { SetCompletion, Todo } from "@teamkeel/sdk";
 
 export default SetCompletion(async (inputs, api) => {
   const now = new Date();
-  return api.models.todo.update(inputs.where.id, {
+
+  const values: Partial<Todo> = {
     ...inputs.values,
-    completedAt: inputs.values.complete ? now : null,
+  };
+
+  if (inputs.values.complete) {
+    values.completedAt = now;
+  }
+
+  return api.models.todo.update(inputs.where.id, {
+    ...values,
   });
 });
