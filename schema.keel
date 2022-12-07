@@ -5,20 +5,24 @@ model Todo {
         description Text?
         completedAt Timestamp?
         owner Identity
+        project Project?
     }
 
     operations {
         get todo(id)
-        list allTodos(complete?) {
+        list allTodos(complete?, project.id?) {
             @where(todo.owner == ctx.identity)
         }
         delete deleteTodo(id)
-        update updateTodo(id) with (title?, description?)
-        update setCompletion(id) with (complete)
-        create createTodo() with (title, description?) {
+        update updateTodo(id) with (title?, description?, project.id?)
+        create createTodo() with (title, description?, project.id?) {
             @permission(expression: ctx.isAuthenticated)
             @set(todo.owner = ctx.identity)
         }
+    }
+
+    functions {
+        update setCompletion(id) with (complete)
     }
 
     @permission(
@@ -27,11 +31,38 @@ model Todo {
     )
 }
 
+model Project {
+    fields {
+        title Text
+        owner Identity
+        tasks Todo[]
+    }
+
+    operations {
+        get getProject(id)
+        list listProjects() {
+            @where(project.owner == ctx.identity)
+        }
+        delete deleteProject(id)
+        create createProject() with (title) {
+            @permission(expression: ctx.isAuthenticated)
+            @set(project.owner = ctx.identity)
+        }
+        update updateProject(id) with (title)
+    }
+
+    @permission(
+        actions: [get, list, update, delete],
+        expression: project.owner == ctx.identity
+    )
+}
+
 api Web {
     @graphql
 
     models {
         Todo
+        Project
     }
 }
 
@@ -40,5 +71,6 @@ api Console {
 
     models {
         Todo
+        Project
     }
 }
