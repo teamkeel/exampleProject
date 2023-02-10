@@ -58,8 +58,6 @@ model Project {
 }
 
 api Web {
-    @graphql
-
     models {
         Todo
         Project
@@ -67,8 +65,6 @@ api Web {
 }
 
 api Console {
-    @rpc
-
     models {
         Todo
         Project
