@@ -11,7 +11,7 @@ export default SetCompletion(async (inputs, api) => {
     values.completedAt = now;
   }
 
-  return api.models.todo.update(inputs.where.id, {
+  return api.models.todo.update(inputs.where, {
     ...values,
   });
 });
