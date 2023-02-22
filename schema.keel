@@ -63,10 +63,3 @@ api Web {
         Project
     }
 }
-
-api Console {
-    models {
-        Todo
-        Project
-    }
-}
