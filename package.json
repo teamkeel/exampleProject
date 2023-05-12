@@ -1,7 +1,7 @@
 {
   "name": "exampleProject",
   "dependencies": {
-    "@teamkeel/functions-runtime": "*",
+    "@teamkeel/functions-runtime": "^0.319.2",
     "@teamkeel/testing-runtime": "*",
     "@types/node": "^18.11.18",
     "kysely": "^0.23.4",
