@@ -1,14 +1,14 @@
-import { SetCompletion, Todo } from "@teamkeel/sdk";
+import { models, permissions, SetCompletion, Todo } from "@teamkeel/sdk";
 
-export default SetCompletion(async (ctx, inputs, api) => {
+export default SetCompletion(async (ctx, inputs) => {
   const now = new Date();
 
-  const todo = await api.models.todo.findOne(inputs.where);
+  const todo = await models.todo.findOne(inputs.where);
 
   if (todo && todo.ownerId == ctx.identity?.id) {
-    api.permissions.allow();
+    permissions.allow();
   } else {
-    api.permissions.deny();
+    permissions.deny();
   }
 
   const values: Partial<Todo> = {
@@ -19,7 +19,7 @@ export default SetCompletion(async (ctx, inputs, api) => {
     values.completedAt = now;
   }
 
-  return api.models.todo.update(inputs.where, {
+  return models.todo.update(inputs.where, {
     ...values,
   });
 });
