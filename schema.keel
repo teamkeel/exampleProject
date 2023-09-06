@@ -8,7 +8,7 @@ model Todo {
         project Project?
     }
 
-    operations {
+    actions {
         get todo(id)
         list allTodos(complete?, project.id?) {
             @where(todo.owner == ctx.identity)
@@ -19,10 +19,7 @@ model Todo {
             @permission(expression: ctx.isAuthenticated)
             @set(todo.owner.id = ctx.identity.id)
         }
-    }
-
-    functions {
-        update setCompletion(id) with (complete)
+        update setCompletion(id) with (complete) @function
     }
 
     @permission(
@@ -38,7 +35,7 @@ model Project {
         tasks Todo[]
     }
 
-    operations {
+    actions {
         get getProject(id)
         list listProjects() {
             @where(project.owner == ctx.identity)
@@ -55,11 +52,4 @@ model Project {
         actions: [get, list, update, delete],
         expression: project.owner == ctx.identity
     )
-}
-
-api Web {
-    models {
-        Todo
-        Project
-    }
 }
