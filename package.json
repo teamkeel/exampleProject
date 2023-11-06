@@ -1,12 +1,14 @@
 {
   "name": "exampleProject",
   "dependencies": {
-    "@teamkeel/functions-runtime": "^0.365.15",
-    "@teamkeel/testing-runtime": "^0.365.15",
-    "@types/node": "^18.11.18",
+    "@teamkeel/functions-runtime": "^0.370.1",
+    "@teamkeel/testing-runtime": "^0.370.1",
     "kysely": "^0.23.4",
     "node-fetch": "^3.3.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
     "tsx": "^3.12.6",
     "typescript": "^4.9.4",
     "vitest": "^0.27.2"

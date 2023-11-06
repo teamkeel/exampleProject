@@ -4,6 +4,10 @@
     "target": "ES2016",
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "paths": {
+      "@teamkeel/sdk": ["./.build/sdk"],
+      "@teamkeel/testing": ["./.build/testing"]
+    },
     "skipLibCheck": true,
     "strictNullChecks": true,
     "types": ["node"],
