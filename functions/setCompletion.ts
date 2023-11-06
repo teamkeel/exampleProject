@@ -1,4 +1,4 @@
-import { models, permissions, SetCompletion, Todo } from '@teamkeel/sdk';
+import { models, permissions, SetCompletion, Todo } from "@teamkeel/sdk";
 
 export default SetCompletion({
   beforeQuery: async (ctx, inputs) => {
